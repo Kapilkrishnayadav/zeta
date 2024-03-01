@@ -14,6 +14,10 @@ mongoose
   const Schema = mongoose.Schema;
   
   const RegisterSchema = new Schema({
+    profilePhoto: {
+      type: String,
+      required: true
+    },
     firstName: {
       type: String,
       required: true
@@ -60,16 +64,16 @@ const cors = require("cors");
 const path = require("path");
 const { createRequire } = require("module");
 const app = express();
-
+app.use(cookieParser());
 app.use(express.json());
 app.use(cors());
 app.post("/register", async (req, res) => {
   try {
     // Extract data from the request body
-    const { firstName, lastName, dateOfBirth, email, phoneNumber, gender, password } = req.body;
+    const { profilePhoto, firstName, lastName, dateOfBirth, email, phoneNumber, gender, password } = req.body;
 
     // Validate incoming data
-    if (!firstName || !lastName || !dateOfBirth || !email || !phoneNumber || !gender || !password) {
+    if (!profilePhoto || !firstName || !lastName || !dateOfBirth || !email || !phoneNumber || !gender || !password) {
       return res.status(400).json({ error: "All fields are required" });
     }
 
@@ -84,6 +88,7 @@ app.post("/register", async (req, res) => {
 
     // Create a new user document
     const registerData = await Register.create({
+      profilePhoto,
       firstName,
       lastName,
       dateOfBirth: new Date(dateOfBirth), // Ensure date of birth is converted to Date type
@@ -169,8 +174,75 @@ app.put("/logout", async (req, res) => {
     res.status(500).json({ success: false, error: "An error occurred while logging out" });
   }
 });
+app.put("/update-profile", async (req, res) => {
+  try {
+    // Extract data from the request body
+    const {profilePhoto, firstName, lastName, dateOfBirth, email, phoneNumber, gender, password } = req.body;
 
-  
+    // Validate incoming data (you can adjust the validation based on your requirements)
+    if (!profilePhoto || !firstName || !lastName || !dateOfBirth || !email || !phoneNumber || !gender) {
+      return res.status(400).json({ error: "All fields except password are required" });
+    }
+
+    // Check if the user exists in the database
+    const existingUser = await Register.findOne({ email });
+    if (!existingUser) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    // Update user data
+    existingUser.profilePhoto=profilePhoto;
+    existingUser.firstName = firstName;
+    existingUser.lastName = lastName;
+    existingUser.dateOfBirth = new Date(dateOfBirth);
+    existingUser.phoneNumber = phoneNumber;
+    existingUser.gender = gender;
+
+    // If password is provided, hash and update it
+    console.log(existingUser);
+    // Save the updated user document
+    await existingUser.save();
+
+    // Respond with success message
+    res.status(200).json({ success: true, message: "Profile updated successfully" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "An error occurred while updating the profile" });
+  }
+});
+
+  // Assuming you have a User model imported and your app setup for Express
+
+// API endpoint to fetch profile data using JWT token from cookies
+app.get("/profile", async (req, res) => {
+  try {
+    // Extract JWT token from cookies
+    const token = req.cookies.token;
+
+    // Verify JWT token
+    const decoded = jwt.verify(token, 'shhhh');
+
+    // Extract user ID from decoded token
+    const userId = decoded.id;
+
+    // Fetch user profile data from the database using userId
+    const userProfile = await Register.findById(userId);
+
+    if (!userProfile) {
+      return res.status(404).json({ error: "User profile not found" });
+    }
+
+    // Omit sensitive data like password before sending the response
+    userProfile.password = undefined;
+
+    // Respond with success and user profile data
+    res.status(200).json({ success: true, userProfile });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "An error occurred while fetching user profile" });
+  }
+});
+
 const port = process.env.PORT || 3001;
 app.listen(port, (err) => {
   if (err) console.log(err);

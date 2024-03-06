@@ -1,5 +1,8 @@
 const mongoose = require("mongoose");
+// require("./connectDb/conn")
 const { ObjectId } = require("mongodb");
+const Register = require('./models/Register');
+const OTP = require('./models/OTP');
 mongoose.set("strictQuery", true);
 mongoose
   .connect(
@@ -13,63 +16,6 @@ mongoose
   });
 const Schema = mongoose.Schema;
 
-const RegisterSchema = new Schema({
-  profilePhoto: {
-    type: String,
-    required: true,
-  },
-  firstName: {
-    type: String,
-    required: true,
-  },
-  lastName: {
-    type: String,
-    required: true,
-  },
-  dateOfBirth: {
-    type: Date,
-    required: true,
-  },
-  email: {
-    type: String,
-    required: true,
-    unique: true,
-  },
-  phoneNumber: {
-    type: String,
-    required: true,
-  },
-  gender: {
-    type: String,
-    enum: ["male", "female", "other"],
-    required: true,
-  },
-  password: {
-    type: String,
-    required: true,
-  },
-});
-const OTP_Schema = new Schema({
-  otp: {
-    type: Number,
-    require: true,
-    index: { expires: '1m' },
-  },
-  otpExpiry: {
-    type: Date,
-    required: true,
-  },
-  email: {
-    type: String,
-    required: true,
-   
-  },
-});
-// Create a model using the schema
-const OTP = mongoose.model("OTP", OTP_Schema);
-const Register = mongoose.model("Register", RegisterSchema);
-
-// const register = mongoose.model("register", Register);
 
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
@@ -304,7 +250,7 @@ app.post("/forgot-password", async (req, res) => {
   }
 
   // Generate OTP and send to user's email
-  const otp = Math.floor(100000 + Math.random() * 900000);
+  const otp = Math.floor(1000 + Math.random() * 9000);
   const otpExpiry = new Date(Date.now() + 10 * 60 * 1000); // OTP expires in 10 minutes
 
   try {

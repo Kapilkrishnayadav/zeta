@@ -1,9 +1,6 @@
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const nodemailer = require('nodemailer');
 const Register = require('../models/Register');
-const OTP = require('../models/OTP');
-
 exports.registerUser = async (req, res) => {
   try {
     // Extract data from the request body

@@ -2,13 +2,25 @@
 
 const ParkingList =require("../models/ParkingList");
 exports.postParkingList=(async(req,res)=>{
-    console.log()
+   
     try {
-        // Create a new parking document based on the request body
-        const newParking = await ParkingList.create(req.body);
-        res.status(201).json(newParking);
-      } catch (error) {
-        console.error('Error creating parking:', error);
-        res.status(500).json({ error: 'An error occurred while creating parking' });
+      const { name, lat, long, address, perhourRate, saved, opentime, closeTime } = req.body;
+  
+      // Check if any required field is missing
+      if (!name || !lat || !long || !address || !perhourRate || !saved || !opentime || !closeTime) {
+        return res.status(400).json({ error: "All fields are required" });
       }
+  
+      // Create a new parking entry instance
+      const newParking = new ParkingList({ name, lat, long, address, perhourRate, saved, opentime, closeTime });
+  
+      // Save the new parking entry to the database
+      const savedParking = await newParking.save();
+  
+      // Send success response
+      res.status(201).json({ message: "Parking entry created successfully", parking: savedParking });
+    } catch (error) {
+      console.error("Error creating parking entry:", error);
+      res.status(500).json({ error: "Internal Server Error" });
+    }
 })

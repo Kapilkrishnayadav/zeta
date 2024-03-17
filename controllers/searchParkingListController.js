@@ -27,6 +27,7 @@ exports.searchParkingList=(async(req,res)=>{
                 const allLocations = await Parking.find(filters);
                 const filteredLocations = allLocations.filter(location => {
                     const distance = geolib.getDistance(userLocation, { latitude: location.lat, longitude: location.long });
+                    console.log(distance);
                     return distance <= parseInt(maxDistance);
                 });
     

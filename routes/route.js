@@ -12,6 +12,10 @@ const socialLogin=require("../controllers/socialLoginController")
 const postParkingList=require("../controllers/postParkingListController")
  const getParkingList=require("../controllers/getParkingListController")
  const searchParkingList=require("../controllers/searchParkingListController")
+ const bookParking=require("../controllers/bookParkingController")
+ const getBookParking=require("../controllers/getBookParkingController")
+ const getSavedParking=require("../controllers/getSavedParkingController")
+ const putSaveParkingList=require("../controllers/putSaveParkingListController")
 const verifyToken=token.verifyToken;
 router.post('/register',register.registerUser );
 router.post('/login', login.loginUser);
@@ -23,4 +27,9 @@ router.post('/social-login', socialLogin.socialLogin);
 router.post("/parking-list",postParkingList.postParkingList)
 router.get("/parking-list",getParkingList.getParkingList)
 router.get("/search-parking-list",searchParkingList.searchParkingList)
+router.post("/book-parking",bookParking.bookParking)
+router.get("/book-parking",getBookParking.getBookParking)
+router.get("/saved-parking",getSavedParking.savedParking)
+router.put("/save-button",putSaveParkingList.saveParkingList)
+
 module.exports = router;

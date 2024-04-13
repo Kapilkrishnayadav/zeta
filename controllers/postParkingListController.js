@@ -3,13 +3,18 @@
 const ParkingList =require("../models/ParkingList");
 exports.postParkingList=(async(req,res)=>{
    
-    try {
-      const { name, lat, long, address, perhourRate, saved, opentime, closeTime } = req.body;
-  
-      // Check if any required field is missing
-      if (!name || !lat || !long || !address || !perhourRate || !saved || !opentime || !closeTime) {
-        return res.status(400).json({ error: "All fields are required" });
-      }
+  try {
+    const { name, lat, long, address, perhourRate, saved, opentime, closeTime } = req.body;
+    
+    // Check if any required field is missing
+    if (!req.body.name || !req.body.lat || !req.body.long || !req.body.address || !req.body.perhourRate || !req.body.opentime || !req.body.closeTime) {
+     
+      console.log(req.body.closeTime);
+       return res.status(400).json({ error: "All fields are required" });
+
+     
+    }
+    console.log(req.body)
   
       // Create a new parking entry instance
       const newParking = new ParkingList({ name, lat, long, address, perhourRate, saved, opentime, closeTime });

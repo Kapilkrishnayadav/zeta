@@ -11,6 +11,7 @@ const app = express();
 app.use(cookieParser());
 app.use(express.json());
 app.use(cors());
+
 app.use("/api", route);
 
 // Assuming you have a User model imported and your app setup for Express

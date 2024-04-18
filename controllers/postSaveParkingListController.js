@@ -15,7 +15,7 @@ const existingDocument = await SavedParking.findOne({ userId, parkingId });
 if (existingDocument) {
   // If a document already exists, delete it
   await SavedParking.deleteOne({ _id: existingDocument._id });
-  return res.status(200).json({ message: 'Existing parking information updated successfully' });
+  return res.status(200).json({ message: 'parking unsaved' });
 }
 
 // Create a new SavedParking document
@@ -26,7 +26,7 @@ const savedParking = new SavedParking({
 
 // Save the document to the database
 savedParking.save().then(() => {
-  res.status(201).json({ message: 'Parking information saved successfully' });
+  res.status(201).json({ message: 'Parking saved' });
 }).catch((err) => {
   console.error("Error saving parking information", err);
   res.status(500).json({ error: 'An internal server error occurred' });

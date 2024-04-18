@@ -1,21 +1,55 @@
 const BookParking = require("../models/BookParking");
+const ParkingList = require("../models/ParkingList");
 
 exports.getBookParking = async (req, res) => {
   try {
-    // Get the status parameter from the request body
-    const { status } = req.body;
+    const userId = req.user.id; // Assuming userId is available in the request
 
-    // Fetch all parking entries from the database with the specified status
-    let parkingEntries;
+    const { status } = req.query;
+    let bookedParking;
+
     if (status === "all") {
-      parkingEntries = await BookParking.find();
+      bookedParking = await BookParking.aggregate([
+        {
+          $match: {
+            userId: userId,
+          },
+        },
+        {
+          $lookup: {
+            from: "parkings",
+            localField: "parkingId",
+            foreignField: "_id",
+            as: "parkingDetail",
+          },
+        },
+      ]);
     } else {
-      parkingEntries = await BookParking.find({ status });
+      bookedParking = await BookParking.aggregate([
+        {
+          $match: {
+            userId: userId,
+            status: status,
+          },
+        },
+        {
+          $lookup: {
+            from: "parkings",
+            localField: "parkingId",
+            foreignField: "_id",
+            as: "parkingDetail",
+          },
+        },
+      ]);
     }
 
-    res.status(200).json({ parkingEntries });
-  } catch (err) {
-    console.error("Error fetching parking entries:", err);
-    res.status(500).json({ error: "Internal Server Error" });
+    if (!bookedParking || bookedParking.length === 0) {
+      return res.status(404).json({ error: "No combined data found" });
+    }
+
+    res.status(200).json({ bookedParking });
+  } catch (error) {
+    console.error("Error combining data:", error);
+    res.status(500).json({ error: "An error occurred while processing the request" });
   }
 };

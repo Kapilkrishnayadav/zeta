@@ -1,8 +1,9 @@
-// Import necessary modules
 const mongoose = require('mongoose');
+// const ParkingList=require("./ParkingList")
+const Schema = mongoose.Schema;
 
 // Define schema
-const BookParkingSchema = new mongoose.Schema({
+const BookParkingSchema = new Schema({
   typeOfVehicle: {
     type: String,
     required: true
@@ -24,13 +25,18 @@ const BookParkingSchema = new mongoose.Schema({
     required: true
   },
   parkingId: {
-    type: String,
-    required: true
+    type: Schema.Types.ObjectId, // Changed to ObjectId type
+    required: true,
+    ref:"Parking"
   },
   status: {
     type: String,
     required: true
-  }
+  },
+  userId: {
+    type: String,
+    required: true
+  },
 });
 
 // Create model from schema

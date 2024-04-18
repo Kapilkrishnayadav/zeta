@@ -15,11 +15,12 @@ const postParkingList=require("../controllers/postParkingListController")
  const bookParking=require("../controllers/bookParkingController")
  const getBookParking=require("../controllers/getBookParkingController")
  const getSavedParking=require("../controllers/getSavedParkingController")
- const putSaveParkingList=require("../controllers/putSaveParkingListController")
+ const postSaveParkingList=require("../controllers/postSaveParkingListController")
  const loginSuperAdmin=require("../controllers/loginSuperAdminController")
  const cancelParking=require("../controllers/cancelParkingController")
  const completedParking=require("../controllers/completedParkingController")
 const verifyToken=token.verifyToken;
+const deleteParkingList=require("../controllers/deleteParkingList")
 router.post('/register',register.registerUser );
 router.post('/login', login.loginUser);
 router.post('/forgot-password', forgotPassword.forgotPassword);
@@ -29,13 +30,14 @@ router.post('/reset-password',resetPassword.resetPassword)
 router.post('/social-login', socialLogin.socialLogin);
 router.post("/parking-list",postParkingList.postParkingList)
 router.get("/parking-list",getParkingList.getParkingList)
+router.delete("/parking-list",deleteParkingList.deleteParkingList)
 router.get("/search-parking-list",searchParkingList.searchParkingList)
-router.post("/book-parking",bookParking.bookParking)
-router.get("/book-parking",getBookParking.getBookParking)
-router.put("/cancel-parking",cancelParking.cancelParking)
-router.put("/completed-parking",completedParking.completedParking)
-router.get("/saved-parking",getSavedParking.savedParking)
-router.put("/save-button",putSaveParkingList.saveParkingList)
+router.post("/book-parking",verifyToken,bookParking.bookParking)
+router.get("/book-parking",verifyToken,getBookParking.getBookParking)
+router.put("/cancel-parking",verifyToken,cancelParking.cancelParking)
+router.put("/completed-parking",verifyToken,completedParking.completedParking)
+router.get("/saved-parking",verifyToken,getSavedParking.savedParking)
+router.post("/save-button",verifyToken,postSaveParkingList.saveParkingList)
 router.post("/super-admin-login",loginSuperAdmin.loginSuperAdmin)
 
 module.exports = router;

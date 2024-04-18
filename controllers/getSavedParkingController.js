@@ -1,12 +1,11 @@
-const ParkingList = require("../models/ParkingList");
+const SavedParking=require("../models/SavedParking")
 
 exports.savedParking = async (req, res) => {
   try {
-    // Fetch data of saved documents from the database
-    const savedParking = await ParkingList.find({ saved: true });
-    res.status(200).json({ parkingData: savedParking });
-  } catch (error) {
-    console.error("Error fetching saved documents:", error);
-    res.status(500).json({ error: "Internal Server Error" });
+    const savedParkings = await SavedParking.find().populate("parkingId");
+    res.json(savedParkings);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Internal Server Error");
   }
 };

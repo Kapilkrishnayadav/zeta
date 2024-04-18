@@ -8,7 +8,6 @@ const parkingSchema = new mongoose.Schema({
   perhourRate: { type: Number, required: true }, // Decimal numbers allowed
   description: { type: String },
   rating: { type: Number },
-  saved: { type: Boolean, default: false, required: true },
   opentime: { type: String, required: true },
   closeTime: { type: String, required: true },
 });

@@ -2,9 +2,9 @@ const BookParking = require("../models/BookParking");
 const ParkingList = require("../models/ParkingList");
 
 exports.getBookParking = async (req, res) => {
+  console.log("kapil");
   try {
     const userId = req.user.id; // Assuming userId is available in the request
-
     const { status } = req.query;
     let bookedParking;
 

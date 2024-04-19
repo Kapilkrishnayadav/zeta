@@ -9,6 +9,7 @@ const registerSchema = new mongoose.Schema({
   phoneNumber: { type: String, required: true },
   gender: { type: String, enum: ["male", "female", "other"], required: true },
   password: { type: String, required: true },
+  isVendor:{type:Boolean,required:true}
 });
 
 module.exports = mongoose.model("Register", registerSchema);

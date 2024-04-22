@@ -9,9 +9,9 @@ exports.resetPassword=(async(req,res)=>{
       return res.status(404).json({ error: 'User not found' });
     }
     // Hash the new password
-    const hashedPassword = await bcrypt.hash(newPassword, 10);
+    // const hashedPassword = await bcrypt.hash(newPassword, 10);
     // Update the user's password in the database
-    await Register.updateOne({ email }, { $set: { password: hashedPassword } });
+    await Register.updateOne({ email }, { $set: { password: newPassword } });
     res.status(200).json({ message: 'Password reset successful' });
   } catch (error) {
     console.error('Error resetting password:', error.message);

@@ -13,17 +13,17 @@ exports.loginUser = async(req, res) => {
         }
     
         // Find user by email
-        const existingUser = await Register.findOne({ email });
+        const existingUser = await Register.findOne({ email,password });
     
         if (!existingUser) {
           return res.status(404).json({ error: "User not found" });
         }
     
         // Compare passwords
-        const passwordMatch = await bcrypt.compare(password, existingUser.password);
-        if (!passwordMatch) {
-          return res.status(401).json({ error: "Invalid password" });
-        }
+        // const passwordMatch = await bcrypt.compare(password, existingUser.password);
+        // if (!passwordMatch) {
+        //   return res.status(401).json({ error: "Invalid password" });
+        // }
     
         // Generate JWT token
         const token = jwt.sign(

@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-
+const Schema = mongoose.Schema;
 const parkingSchema = new mongoose.Schema({
   name: { type: String, required: true },
   lat: { type: Number, required: true },
@@ -10,6 +10,12 @@ const parkingSchema = new mongoose.Schema({
   rating: { type: Number },
   opentime: { type: String, required: true },
   closeTime: { type: String, required: true },
+  vendorId: {
+    type: Schema.Types.ObjectId, // Changed to ObjectId type
+    required: true,
+    ref:"Parking"
+  }
+
 });
 
 const Parking = mongoose.model("Parking", parkingSchema);

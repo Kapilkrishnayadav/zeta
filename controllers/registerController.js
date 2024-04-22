@@ -4,7 +4,7 @@ const Register = require('../models/Register');
 exports.registerUser = async (req, res) => {
   try {
     // Extract data from the request body
-    const { profilePhoto, firstName, lastName, dateOfBirth, email, phoneNumber, gender, password } = req.body;
+    const { profilePhoto, firstName, lastName, dateOfBirth, email, phoneNumber, gender, password,isVendor } = req.body;
 
     // Validate incoming data
     if (!profilePhoto || !firstName || !lastName || !dateOfBirth || !email || !phoneNumber || !gender || !password) {
@@ -18,11 +18,11 @@ exports.registerUser = async (req, res) => {
     }
 
     // Hash the password
-    const hashedPassword = await bcrypt.hash(password, 10);
+    // const hashedPassword = await bcrypt.hash(password, 10);
 
     // Create a new user document
     const newUser = await Register.create({
-      profilePhoto, firstName, lastName, dateOfBirth, email, phoneNumber, gender, password: hashedPassword
+      profilePhoto, firstName, lastName, dateOfBirth, email, phoneNumber, gender, password, isVendor
     });
 
     // Generate JWT token

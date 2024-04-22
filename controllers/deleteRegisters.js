@@ -1,12 +1,13 @@
-const Parking=require("../models/ParkingList")
+const Register=require("../models/Register")
 
-exports.deleteParkingList=(async(req,res)=>{
+exports.deleteRegisters=(async(req,res)=>{
+    console.log("kapil");
     try {
         // Extract the list of IDs to delete from the request body
         const { ids } = req.body;
-      //  console.log(ids);
+        
         // Delete multiple entries based on their IDs
-        const result = await Parking.deleteMany({ _id: { $in: ids } });
+        const result = await Register.deleteMany({ _id: { $in: ids } });
     
         // Check if any entries were deleted
         if (result.deletedCount > 0) {

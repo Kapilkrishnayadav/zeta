@@ -4,12 +4,12 @@ const ParkingList =require("../models/ParkingList");
 exports.postParkingList=(async(req,res)=>{
    
   try {
-    const { name, lat, long, address, perhourRate,description,rating, saved, opentime, closeTime } = req.body;
+    const { name, lat, long, address, perhourRate,description,rating, opentime, closeTime,vendorId } = req.body;
     
     // Check if any required field is missing
-    if (!req.body.name || !req.body.lat || !req.body.long || !req.body.address || !req.body.perhourRate|| !req.body.description || !req.body.rating || !req.body.opentime || !req.body.closeTime) {
+    if (!req.body.name || !req.body.lat || !req.body.long || !req.body.address || !req.body.perhourRate|| !req.body.description || !req.body.rating || !req.body.opentime || !req.body.closeTime || !req.body.vendorId) {
      
-      console.log(req.body.closeTime);
+      
        return res.status(400).json({ error: "All fields are required" });
 
      
@@ -17,7 +17,7 @@ exports.postParkingList=(async(req,res)=>{
     // console.log(req.body)
   
       // Create a new parking entry instance
-      const newParking = new ParkingList({ name, lat, long, address, perhourRate,description,rating, saved, opentime, closeTime });
+      const newParking = new ParkingList({ name, lat, long, address, perhourRate,description,rating, opentime, closeTime,vendorId });
   
       // Save the new parking entry to the database
       const savedParking = await newParking.save();

@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const bcrypt = require("bcryptjs");
+const registerVerifyOTP=require("../controllers/registerVerifyOTP")
 const register= require('../controllers/registerController');
 const login=require("../controllers/loginController")
 const forgotPassword=require("../controllers/forgotPasswordController")
@@ -21,9 +21,15 @@ const postParkingList=require("../controllers/postParkingListController")
  const cancelParking=require("../controllers/cancelParkingController")
  const ongoingBookedParking=require("../controllers/ongoingBookedParking")
  const completedParking=require("../controllers/completedParkingController")
- const deleteParkingList=require("../controllers/deleteParkingList")
+ const deleteParkingList=require("../controllers/deleteParkingList");
+const { getAllRegister } = require('../controllers/getAllRegisters');
+const deleteRegisters= require("../controllers/deleteRegisters")
+const getAllBookParking=require("../controllers/gellAllBookParking")
 const verifyToken=token.verifyToken;
+router.post('/verifyOTP',registerVerifyOTP.registerVerifyOTP );
 router.post('/register',register.registerUser );
+router.post('/register',register.registerUser );
+router.get('/all-registers', getAllRegister );
 router.post('/login', login.loginUser);
 router.post('/forgot-password', forgotPassword.forgotPassword);
 router.get('/profile',verifyToken ,getProfile.getProfile);
@@ -32,6 +38,7 @@ router.post('/reset-password',resetPassword.resetPassword)
 router.post('/social-login', socialLogin.socialLogin);
 router.post("/parking-list",postParkingList.postParkingList)
 router.get("/parking-list",getParkingList.getParkingList)
+router.delete("/register",deleteRegisters.deleteRegisters)
 router.delete("/parking-list",deleteParkingList.deleteParkingList)
 router.get("/search-parking-list",searchParkingList.searchParkingList)
 router.post("/book-parking",verifyToken,bookParking.bookParking)
@@ -44,4 +51,6 @@ router.get("/saved-parking",verifyToken,getSavedParking.savedParking)
 router.post("/save-button",verifyToken,postSaveParkingList.saveParkingList)
 router.post("/super-admin-login",loginSuperAdmin.loginSuperAdmin)
 
+
+router.get("/get-all-book-parking",getAllBookParking.getAllBookParking)
 module.exports = router;

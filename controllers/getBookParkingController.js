@@ -2,9 +2,9 @@ const BookParking = require("../models/BookParking");
 const ParkingList = require("../models/ParkingList");
 
 exports.getBookParking = async (req, res) => {
-  console.log("kapil");
   try {
     const userId = req.user.id; // Assuming userId is available in the request
+    console.log(userId);
     const { status } = req.query;
     let bookedParking;
 
@@ -42,7 +42,7 @@ exports.getBookParking = async (req, res) => {
         },
       ]);
     }
-
+console.log(bookedParking);
     if (!bookedParking || bookedParking.length === 0) {
       return res.status(404).json({ error: "No combined data found" });
     }

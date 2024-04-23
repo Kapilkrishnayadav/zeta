@@ -10,7 +10,7 @@ const parkingSchema = new mongoose.Schema({
   rating: { type: Number },
   opentime: { type: String, required: true },
   closeTime: { type: String, required: true },
-  vendorId: {
+  userId: {
     type: Schema.Types.ObjectId, // Changed to ObjectId type
     required: true,
     ref:"Parking"

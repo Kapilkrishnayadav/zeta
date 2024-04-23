@@ -12,6 +12,7 @@ exports.updateProfile=(async(req,res)=>{
           phoneNumber,
           gender,
           password,
+          isFirst
         } = req.body;
     
         // Validate incoming data (you can adjust the validation based on your requirements)
@@ -42,6 +43,7 @@ exports.updateProfile=(async(req,res)=>{
         existingUser.dateOfBirth = new Date(dateOfBirth);
         existingUser.phoneNumber = phoneNumber;
         existingUser.gender = gender;
+        existingUser.isFirst=isFirst;
     
         // If password is provided, hash and update it
         console.log(existingUser);

@@ -35,7 +35,8 @@ const BookParkingSchema = new Schema({
   },
   userId: {
     type: String,
-    required: true
+    required: true,
+    ref:"Register"
   },
 });
 

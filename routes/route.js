@@ -25,6 +25,7 @@ const postParkingList=require("../controllers/postParkingListController")
 const { getAllRegister } = require('../controllers/getAllRegisters');
 const deleteRegisters= require("../controllers/deleteRegisters")
 const getAllBookParking=require("../controllers/gellAllBookParking")
+const getVendorBookedParking=require("../controllers/vendor/getVendorBookedParking")
 const verifyToken=token.verifyToken;
 router.post('/verifyOTP',registerVerifyOTP.registerVerifyOTP );
 router.post('/register',register.registerUser );
@@ -50,7 +51,7 @@ router.put("/completed-parking",verifyToken,completedParking.completedParking)
 router.get("/saved-parking",verifyToken,getSavedParking.savedParking)
 router.post("/save-button",verifyToken,postSaveParkingList.saveParkingList)
 router.post("/super-admin-login",loginSuperAdmin.loginSuperAdmin)
-
+router.get("/booked-parking",verifyToken,getVendorBookedParking.getVendorBookedParking)
 
 router.get("/get-all-book-parking",getAllBookParking.getAllBookParking)
 module.exports = router;

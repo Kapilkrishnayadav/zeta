@@ -13,7 +13,7 @@ const parkingSchema = new mongoose.Schema({
   userId: {
     type: Schema.Types.ObjectId, // Changed to ObjectId type
     required: true,
-    ref:"Parking"
+    ref:"Register"
   }
 
 });

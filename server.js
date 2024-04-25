@@ -13,28 +13,28 @@ app.use(cors());
 const http = require("http");
 const socketIo = require("socket.io");
 const server = http.createServer(app); // assuming 'app' is your existing Express app
-const io = socketIo(server,{cors: {
-  origin:["http://localhost:5173",
-  "https://zeta-admin.vercel.app"],
-  credentials: true ,
-},
-});
+// const io = socketIo(server,{cors: {
+//   origin:["http://localhost:5173",
+//   "https://zeta-admin.vercel.app"],
+//   credentials: true ,
+// },
+// });
 
-io.on("connection", (socket) => {
-  console.log("A user connected");
+// io.on("connection", (socket) => {
+//   console.log("A user connected");
 
-  // Handle event sent from customer side
-  socket.on("customerEvent", (data) => {
-      console.log("Received event from customer:", data);
+//   // Handle event sent from customer side
+//   socket.on("customerEvent", (data) => {
+//       console.log("Received event from customer:", data);
 
-      // Emit the event to admin side
-      io.emit("adminEvent", data);
-  });
+//       // Emit the event to admin side
+//       io.emit("adminEvent", data);
+//   });
 
-  socket.on("disconnect", () => {
-      console.log("A user disconnected");
-  });
-});
+//   socket.on("disconnect", () => {
+//       console.log("A user disconnected");
+//   });
+// });
 
 
 

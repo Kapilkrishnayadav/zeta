@@ -38,7 +38,7 @@ router.put('/update-profile',verifyToken ,updateProfile.updateProfile);
 router.post('/reset-password',resetPassword.resetPassword)
 router.post('/social-login', socialLogin.socialLogin);
 router.post("/parking-list",postParkingList.postParkingList)
-router.get("/parking-list",getParkingList.getParkingList)
+router.get("/parking-list",verifyToken,getParkingList.getParkingList)
 router.delete("/register",deleteRegisters.deleteRegisters)
 router.delete("/parking-list",deleteParkingList.deleteParkingList)
 router.get("/search-parking-list",searchParkingList.searchParkingList)

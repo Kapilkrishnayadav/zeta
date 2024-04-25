@@ -2,28 +2,29 @@ const SavedParking =require("../models/SavedParking")
 exports.saveParkingList=(async(req,res)=>{
   const { parkingId } = req.body;
   const userId=req.user.id;
-
-
-// Validate the presence of required fields
-if (!userId || !parkingId) {
-  return res.status(400).json({ error: 'userId and parkingId are required' });
-}
-
-// Check if a document with the same userId and parkingId already exists
-const existingDocument = await SavedParking.findOne({ userId, parkingId });
-
+  
+  // Validate the presence of required fields
+  if (!userId || !parkingId) {
+    return res.status(400).json({ error: 'userId and parkingId are required' });
+  }
+  
+  // Check if a document with the same userId and parkingId already exists
+  const existingDocument = await SavedParking.findOne({ userId, parkingId });
+  
 if (existingDocument) {
   // If a document already exists, delete it
   await SavedParking.deleteOne({ _id: existingDocument._id });
   return res.status(200).json({ message: 'parking unsaved' });
 }
-
+// console.log(userId);
+// console.log(parkingId);
 // Create a new SavedParking document
 const savedParking = new SavedParking({
   userId,
   parkingId
 });
 
+// console.log("kapil")
 // Save the document to the database
 savedParking.save().then(() => {
   res.status(201).json({ message: 'Parking saved' });

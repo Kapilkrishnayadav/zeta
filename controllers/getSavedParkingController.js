@@ -2,7 +2,7 @@ const SavedParking=require("../models/SavedParking")
 
 exports.savedParking = async (req, res) => {
   // const { parkingId } = req.body;
-  const userId=req.user.id;
+  const {userId}=req.user.id;
   try {
     const savedParkings = await SavedParking.find(userId).populate("parkingId");
     res.json(savedParkings);

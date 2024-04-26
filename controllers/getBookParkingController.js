@@ -9,11 +9,11 @@ exports.getBookParking = async (req, res) => {
     const { status } = req.query;
     let bookedParking;
    
-    // if (status === "all") {
-      // const data= await BookParking.find({userId})
-      // const pata=data[0].parkingId
-      // console.log(await ParkingList.find({_id:pata}));
-      // console.log(pata)
+    if (status === "all") {
+      const data= await BookParking.find({userId})
+      const pata=data[0].parkingId
+      console.log(await ParkingList.find({_id:pata}));
+      console.log(pata)
       bookedParking = await BookParking.aggregate([
         {
           $match: {
@@ -29,24 +29,24 @@ exports.getBookParking = async (req, res) => {
           },
         },
       ]);
-    // } else {
-    //   bookedParking = await BookParking.aggregate([
-    //     {
-    //       $match: {
-    //         userId: userId,
-    //         status: status,
-    //       },
-    //     },
-    //     {
-    //       $lookup: {
-    //         from: "parkings",
-    //         localField: "parkingId",
-    //         foreignField: "_id",
-    //         as: "parkingDetail",
-    //       },
-    //     },
-    //   ]);
-    // }
+    } else {
+      bookedParking = await BookParking.aggregate([
+        {
+          $match: {
+            userId:new ObjectId(userId),
+            status: status,
+          },
+        },
+        {
+          $lookup: {
+            from: "parkings",
+            localField: "parkingId",
+            foreignField: "_id",
+            as: "parkingDetail",
+          },
+        },
+      ]);
+    }
 console.log(bookedParking);
     if (!bookedParking || bookedParking.length === 0) {
       return res.status(404).json({ error: "No combined data found" });

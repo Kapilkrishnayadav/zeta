@@ -38,6 +38,10 @@ const BookParkingSchema = new Schema({
     required: true,
     ref:"Register"
   },
+  paymentStatus: {
+    type: String,
+    required: true
+  },
 });
 
 // Create model from schema

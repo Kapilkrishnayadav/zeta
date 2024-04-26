@@ -5,6 +5,7 @@ exports.ongoingBookedParking = async (req, res) => {
 
     const userId = req.user.id;
     const _id = req.body.id; // Assuming the ID is provided in the request body
+    const paymentStatus=req.body.paymentStatus;
 
     // Check if ID is provided in the request body
     if (!_id) {
@@ -15,6 +16,7 @@ exports.ongoingBookedParking = async (req, res) => {
     const updatedParking = await Parking.findOneAndUpdate(
       { _id}, // Filter
       { $set: { status: "ongoing" } }, // Update
+      { $set: { paymentStatus: paymentStatus } },
       { new: true } // Return the updated document
     );
 

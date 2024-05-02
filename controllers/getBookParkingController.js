@@ -10,10 +10,6 @@ exports.getBookParking = async (req, res) => {
     let bookedParking;
    
     if (status === "all") {
-      const data= await BookParking.find({userId})
-      const pata=data[0].parkingId
-      console.log(await ParkingList.find({_id:pata}));
-      console.log(pata)
       bookedParking = await BookParking.aggregate([
         {
           $match: {

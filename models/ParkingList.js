@@ -5,7 +5,12 @@ const parkingSchema = new mongoose.Schema({
   lat: { type: Number, required: true },
   long: { type: Number, required: true },
   address: { type: String, required: true },
-  perhourRate: { type: Number, required: true }, // Decimal numbers allowed
+  car_perhourRate: { type: Number}, // Decimal numbers allowed
+  bus_perhourRate: { type: Number},
+  bike_perhourRate: { type: Number},
+  miniTruck_perhourRate: { type: Number},
+  HCV_perhourRate: { type: Number},
+  LCV_perhourRate: { type: Number},
   description: { type: String },
   rating: { type: Number },
   opentime: { type: String, required: true },

@@ -24,7 +24,7 @@ exports.loginSuperAdmin = async (req, res) => {
       { id: existingUser._id, username: existingUser.username },
       "shhhh",
       {
-        expiresIn: "2h",
+        expiresIn: "24h",
       }
     );
 

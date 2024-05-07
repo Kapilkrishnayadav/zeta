@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const registerSchema = new mongoose.Schema({
-  profilePhoto: { type: String, required: true },
+  profilePhoto: { type: String},
   firstName: { type: String, required: true },
   lastName: { type: String, required: true },
   dateOfBirth: { type: Date, required: true },

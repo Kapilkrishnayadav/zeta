@@ -8,7 +8,7 @@ exports.registerUser = async (req, res) => {
 
     // Validate incoming data
     // console.log(req.body);
-    if (!profilePhoto || !firstName || !lastName || !dateOfBirth || !email || !phoneNumber || !gender || !password) {
+    if ( !firstName || !lastName || !dateOfBirth || !email || !phoneNumber || !gender || !password) {
       console.log("fields required");
       return res.status(400).json({ error: 'All fields are required' });
     }

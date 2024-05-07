@@ -14,7 +14,7 @@ exports.updateProfile=(async(req,res)=>{
           password,
           isFirst
         } = req.body;
-    
+        console.log(req.body)
         // Validate incoming data (you can adjust the validation based on your requirements)
         if (
           !profilePhoto ||

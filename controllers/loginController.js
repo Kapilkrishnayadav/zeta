@@ -30,7 +30,7 @@ exports.loginUser = async(req, res) => {
           { id: existingUser._id, email: existingUser.email },
           "shhhh",
           {
-            expiresIn: "24h",
+            expiresIn: "43200m",
           }
         );
     

@@ -42,6 +42,14 @@ const BookParkingSchema = new Schema({
     type: String,
     required: true
   },
+  paidTime:{
+    type:String,
+    default:"unpaid",
+  },
+  paidAmount:{
+    type:String,
+    default:"0",
+  },
 });
 
 // Create model from schema

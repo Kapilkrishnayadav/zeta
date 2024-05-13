@@ -20,7 +20,7 @@ exports.socialLogin=(async(req,res)=>{
           { id: existingUser._id, email: existingUser.email },
           "shhhh",
           {
-            expiresIn: "2h",
+            expiresIn: "43200m",
           }
         );
     

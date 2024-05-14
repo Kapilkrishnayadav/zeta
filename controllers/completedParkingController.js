@@ -12,7 +12,7 @@ exports.completedParking = async (req, res) => {
 
     // Find and update the parking entry by ID and user ID
     const updatedParking = await Parking.findOneAndUpdate(
-      { _id, userId }, // Filter
+      { _id}, // Filter
       { $set: { status: "completed" } }, // Update
       { new: true } // Return the updated document
     );

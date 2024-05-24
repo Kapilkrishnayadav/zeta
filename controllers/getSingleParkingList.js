@@ -6,7 +6,7 @@ exports.getSingleParkingList = async (req, res) => {
         // Fetch all parking documents from the database
         const userId = req.user.id; // Assuming userId is available in the request
         const { parkingId } = req.query; // Corrected destructuring
-        console.log(parkingId)
+        // console.log(parkingId)
         const parking = await Parking.findById(parkingId);
         res.status(200).json(parking);
     } catch (error) {

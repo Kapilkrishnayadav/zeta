@@ -10,7 +10,7 @@ exports.editEndDateTime = async (req, res) => {
     if (!_id) {
       return res.status(400).json({ error: "Invalid request body" });
     }
- console.log("Kapil"); 
+//  console.log("Kapil"); 
     // Find and update the parking entry by ID and user ID
     const updatedParking = await Parking.findOneAndUpdate(
       { _id}, // Filter

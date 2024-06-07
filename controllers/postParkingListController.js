@@ -7,7 +7,7 @@ exports.postParkingList=(async(req,res)=>{
     const { name, lat, long, address, car_perhourRate,bike_perhourRate,miniTruck_perhourRate,bus_perhourRate,LCV_perhourRate,HCV_perhourRate,description,rating, opentime, closeTime,userId } = req.body;
     // console.log(req.body);
     // Check if any required field is missing
-    if (!req.body.name || !req.body.lat || !req.body.long || !req.body.address || !req.body.description || !req.body.rating || !req.body.opentime || !req.body.closeTime || !req.body.userId) {
+    if (!req.body.name || !req.body.lat || !req.body.long || !req.body.address || !req.body.rating || !req.body.opentime || !req.body.closeTime || !req.body.userId) {
      
       
        return res.status(400).json({ error: "All fields are required" });

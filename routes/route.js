@@ -28,6 +28,7 @@ const deleteRegisters= require("../controllers/deleteRegisters")
 const getAllBookParking=require("../controllers/gellAllBookParking")
 const getVendorBookedParking=require("../controllers/vendor/getVendorBookedParking")
 const editEndDateTime=require("../controllers/editEndDateTime")
+const updateParkingStatus=require("../controllers/updateParkingStatus")
 const verifyToken=token.verifyToken;
 router.post('/verifyOTP',registerVerifyOTP.registerVerifyOTP );
 router.post('/register',register.registerUser );
@@ -57,5 +58,6 @@ router.post("/super-admin-login",loginSuperAdmin.loginSuperAdmin)
 router.get("/booked-parking",verifyToken,getVendorBookedParking.getVendorBookedParking)
 router.get("/get-all-book-parking",getAllBookParking.getAllBookParking)
 router.put("/editEndDateTime",editEndDateTime.editEndDateTime)
+router.put("/book-parking",verifyToken,updateParkingStatus.updateParkingStatus)
 
 module.exports = router;

@@ -33,6 +33,10 @@ const BookParkingSchema = new Schema({
     type: String,
     required: true
   },
+  parkingStatus: {
+    type: String,
+    required: true
+  },
   userId: {
     type: Schema.Types.ObjectId,
     required: true,

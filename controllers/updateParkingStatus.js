@@ -8,8 +8,17 @@ exports.updateParkingStatus = async (req, res) => {
 
     // Check if ID is provided in the request body
     if (!_id) {
-        
+
       return res.status(400).json({ error: "Invalid request body" });
+    }
+
+    if(parkingStatus==="rejected")
+    {
+        const updatedStatus = await Parking.findOneAndUpdate(
+            { _id}, // Filter
+            { $set: { status:"cancelled" } }, // Update
+            { new: true } // Return the updated document
+          );
     }
 //  console.log("Kapil"); 
     // Find and update the parking entry by ID and user ID

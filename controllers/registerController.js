@@ -4,11 +4,11 @@ const Register = require('../models/Register');
 exports.registerUser = async (req, res) => {
   try {
     // Extract data from the request body
-    const { profilePhoto, firstName, lastName, dateOfBirth, email, phoneNumber, gender, password,isVendor } = req.body;
+    const { profilePhoto, firstName, lastName, dateOfBirth, email, phoneNumber, gender, password,isVendor,fcmToken } = req.body;
 
     // Validate incoming data
     // console.log(req.body);
-    if ( !firstName || !lastName || !dateOfBirth || !email || !phoneNumber || !gender || !password) {
+    if ( !firstName || !lastName || !dateOfBirth || !email || !phoneNumber || !gender || !password || !fcmToken) {
       console.log("fields required");
       return res.status(400).json({ error: 'All fields are required' });
     }
@@ -21,7 +21,7 @@ exports.registerUser = async (req, res) => {
     }
 
     const newUser = await Register.create({
-      profilePhoto, firstName, lastName, dateOfBirth, email, phoneNumber, gender, password, isVendor
+      profilePhoto, firstName, lastName, dateOfBirth, email, phoneNumber, gender, password, isVendor, fcmToken
     });
 
     // Generate JWT token

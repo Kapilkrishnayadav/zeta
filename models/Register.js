@@ -11,6 +11,7 @@ const registerSchema = new mongoose.Schema({
   password: { type: String, required: true },
   isVendor:{type:Boolean,required:true},
   isFirst:{type:Boolean,required:true,default:true},
+  fcmToken:{type:String,required:true},
 });
 
 module.exports = mongoose.model("Register", registerSchema);

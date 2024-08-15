@@ -6,7 +6,7 @@ const Register = require('../models/Register');
 exports.loginUser = async(req, res) => {
    
     try {
-        const { email, password } = req.body;
+        const { email, password,fcmToken } = req.body;
     
         if (!email || !password) {
           return res.status(400).json({ error: "Email and password are required" });
@@ -34,6 +34,12 @@ exports.loginUser = async(req, res) => {
           }
         );
     
+         // Update FCM token if provided
+         if (fcmToken) {
+          existingUser.fcmToken = fcmToken;
+          await existingUser.save();
+      }
+
         // Omit password from the response
         existingUser.password = undefined;
     

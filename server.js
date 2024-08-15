@@ -40,8 +40,16 @@ const server = http.createServer(app); // assuming 'app' is your existing Expres
 
 
 const route = require("./routes/route");
+const admin = require("firebase-admin");
 app.use(cookieParser());
 app.use(express.json());
+
+const serviceAccount = require("./zeta-6aef2-firebase-adminsdk-5fvlw-02875c5caf.json"); 
+
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount)   
+
+});
 
 app.use("/api", route);
 

@@ -7,16 +7,17 @@ const admin = require("firebase-admin");
 exports.bookParking = async (req, res) => {
   try {
     // Convert req.user.id to ObjectId if it's not already
-    const userId = req.user.id;
+    let userId = req.user.id;
     const parkingId = req.body.parkingId;
     if (!parkingId) {
       return res.status(404).json({ error: "Parking not found" });
     }
     const parkingDetail = await ParkingList.findById(parkingId);
     const vendorId = parkingDetail.userId;
-    const register = await Register.findOne({ userId: vendorId });
-    console.log(register.fcmToken);
-
+    userId= vendorId;
+    const register = await Register.findOne(userId);
+    
+    console.log(register);
     const message = {
       notification: {
         title: "New Notification",

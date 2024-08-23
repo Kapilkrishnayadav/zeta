@@ -2,7 +2,7 @@ const Register=require("../models/Register")
 const jwt = require("jsonwebtoken");
 exports.socialLogin=(async(req,res)=>{
     try {
-        const { email } = req.body;
+        const { email,fcmToken } = req.body;
     
         if (!email) {
           return res.status(400).json({ error: "Email and password are required" });
@@ -23,7 +23,10 @@ exports.socialLogin=(async(req,res)=>{
             expiresIn: "43200m",
           }
         );
-    
+        if (fcmToken) {
+          existingUser.fcmToken = fcmToken;
+          await existingUser.save();
+      }
         // Omit password from the response
         existingUser.password = undefined;
     

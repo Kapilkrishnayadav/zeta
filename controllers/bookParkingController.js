@@ -23,6 +23,7 @@ exports.bookParking = async (req, res) => {
         title: "New Notification",
         body: "Accept the booking of parking",
       },
+      data:req.body,
       token: register.fcmToken,
     };
 

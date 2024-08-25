@@ -1,11 +1,12 @@
 const Parking = require("../models/BookParking");
-
+const Register=require("../models/Register")
 exports.updateParkingStatus = async (req, res) => {
   try {
     // const userId = req.user.id;
     const _id = req.body._id; // Assuming the ID is provided in the request body
     const parkingStatus=req.body.parkingStatus;
-
+    const userId= req.user.userId;
+    const register = await Register.findOne(userId);
     // Check if ID is provided in the request body
     if (!_id) {
 
@@ -27,6 +28,25 @@ exports.updateParkingStatus = async (req, res) => {
       { $set: { parkingStatus } }, // Update
       { new: true } // Return the updated document
     );
+
+    const message = {
+      notification: {
+        title: "New Notification",
+        body: "Booking "+parkingStatus,
+      },
+      token: register.fcmToken,
+    };
+
+    admin
+      .messaging()
+      .send(message)
+      .then((response) => {
+        console.log("Successfully sent message:", response);
+      })
+      .catch((error) => {
+        console.log("Error sending message:", error);
+      });
+
 
     // Check if parking entry is found
     if (!updatedParking) {

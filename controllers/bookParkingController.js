@@ -9,6 +9,11 @@ exports.bookParking = async (req, res) => {
     // Convert req.user.id to ObjectId if it's not already
     let userId = req.user.id;
     const parkingId = req.body.parkingId;
+    if(req.body.paidAmount==null)
+    {
+      // console.log("hello");
+      req.body.paidAmount="0";
+    }
     if (!parkingId) {
       return res.status(404).json({ error: "Parking not found" });
     }

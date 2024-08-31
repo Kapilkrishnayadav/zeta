@@ -14,6 +14,10 @@ exports.bookParking = async (req, res) => {
       // console.log("hello");
       req.body.paidAmount="0";
     }
+    if(req.body.paidTime===null)
+    {
+      req.body.paidTime==="null";
+    }
     if (!parkingId) {
       return res.status(404).json({ error: "Parking not found" });
     }

@@ -7,7 +7,7 @@ const admin = require("firebase-admin");
 exports.bookParking = async (req, res) => {
   try {
     // Convert req.user.id to ObjectId if it's not already
-    console.log(req.body);
+    
     let userId = req.user.id;
     const parkingId = req.body.parkingId;
     if(req.body.paidAmount==null)
@@ -19,7 +19,7 @@ exports.bookParking = async (req, res) => {
     {
       req.body.paidTime="null";
     }
-    console.log(req.body);
+   
     if (!parkingId) {
       return res.status(404).json({ error: "Parking not found" });
     }
@@ -29,6 +29,21 @@ exports.bookParking = async (req, res) => {
     const register = await Register.findOne(userId);
     
     // console.log(register);
+
+    req.body.userId = userId.toString();
+
+    // Create a new parking document
+    const newParking = new BookParking(req.body);
+
+    // Save the document to the database
+    await newParking.save();
+    // console.log(newParking._id.toString());
+    req.body._id=newParking._id.toString();
+    //  newParking.parkingId=newParking.parkingId.toString();
+    //  newParking.userId=newParking.userId.toString();
+    console.log(req.body);
+  console.log(newParking);
+
     const message = {
       notification: {
         title: "New Notification",
@@ -50,14 +65,7 @@ exports.bookParking = async (req, res) => {
 
     // Set the user ID in the request body
 
-    req.body.userId = userId;
-
-    // Create a new parking document
-    const newParking = new BookParking(req.body);
-
-    // Save the document to the database
-    await newParking.save();
-
+   
     res
       .status(201)
       .json({

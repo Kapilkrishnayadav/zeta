@@ -22,6 +22,17 @@ exports.updateParkingStatus = async (req, res) => {
             { new: true } // Return the updated document
           );
     }
+    else
+    if(parkingStatus=="accepted")
+    {
+
+      const updatedStatus = await Parking.findOneAndUpdate(
+        { _id}, // Filter
+        { $set: { status:"ongoing" } }, // Update
+        { new: true } // Return the updated document
+      );
+      // console.log(updatedStatus);
+    }
 //  console.log("Kapil"); 
     // Find and update the parking entry by ID and user ID
     const updatedParking = await Parking.findOneAndUpdate(

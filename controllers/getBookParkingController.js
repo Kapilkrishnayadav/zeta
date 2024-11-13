@@ -7,6 +7,7 @@ exports.getBookParking = async (req, res) => {
     const userId = req.user.id; // Assuming userId is available in the request
     // console.log(userId);
     const { status } = req.query;
+    console.log(status)
     let bookedParking;
    
     if (status === "all") {

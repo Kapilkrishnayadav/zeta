@@ -23,6 +23,7 @@ exports.bookParking = async (req, res) => {
     if (!parkingId) {
       return res.status(404).json({ error: "Parking not found" });
     }
+    req.body.userId = userId.toString();
     const parkingDetail = await ParkingList.findById(parkingId);
     const vendorId = parkingDetail.userId;
     userId= vendorId;
@@ -30,7 +31,6 @@ exports.bookParking = async (req, res) => {
     
     // console.log(register);
 
-    req.body.userId = userId.toString();
 
     // Create a new parking document
     const newParking = new BookParking(req.body);
